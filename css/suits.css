@@ -1,0 +1,179 @@
+body {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    font-family: Georgia, serif;
+    margin: 0;
+    padding: 0;
+}
+ 
+h1 {
+    font-size: 48px;
+    color: #c9a84c;
+    text-align: center;
+}
+ 
+h2 {
+    font-size: 30px;
+    color: #c9a84c;
+    border-bottom: 2px solid #c9a84c;
+    padding-bottom: 6px;
+}
+ 
+h3 {
+    font-size: 20px;
+    color: #e8c97a;
+}
+ 
+p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #dddddd;
+}
+ 
+a {
+    color: #c9a84c;
+}
+ 
+a:hover {
+    color: #e8c97a;
+}
+ 
+/* Navigation bar */
+#navbar {
+    background-color: #111111;
+    padding: 14px 30px;
+    border-bottom: 2px solid #c9a84c;
+}
+ 
+#navbar a {
+    color: #c9a84c;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 15px;
+}
+ 
+#navbar a:hover {
+    color: #ffffff;
+}
+ 
+/* Main content wrapper div */
+#main-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+ 
+/* Hero div at the top */
+#hero {
+    background-color: #111111;
+    text-align: center;
+    padding: 60px 20px;
+    border-bottom: 1px solid #333333;
+}
+ 
+#hero p {
+    font-size: 18px;
+    color: #aaaaaa;
+    max-width: 500px;
+    margin: 0 auto;
+}
+ 
+/* Character cards div */
+#characters {
+    margin-top: 40px;
+}
+ 
+.card {
+    background-color: #222222;
+    border: 1px solid #c9a84c;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+ 
+.card h3 {
+    margin-top: 0;
+}
+ 
+.card p {
+    margin-bottom: 0;
+    color: #bbbbbb;
+}
+ 
+/* Section spacing */
+.section {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+ 
+/* Quote styling */
+blockquote {
+    border-left: 4px solid #c9a84c;
+    padding-left: 15px;
+    margin: 20px 0;
+    font-style: italic;
+    color: #cccccc;
+}
+ 
+/* Video embed wrapper */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    margin-top: 15px;
+}
+ 
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+ 
+/* Image styling */
+img {
+    max-width: 100%;
+    border: 2px solid #c9a84c;
+    border-radius: 4px;
+}
+ 
+/* List styling */
+ol {
+    color: #dddddd;
+    line-height: 1.9;
+}
+ 
+ul {
+    color: #bbbbbb;
+    line-height: 1.9;
+}
+ 
+/* Footer */
+#footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #333;
+    color: #777777;
+    font-size: 14px;
+    margin-top: 60px;
+}
+ 
+/* App link button */
+.app-button {
+    display: inline-block;
+    background-color: #c9a84c;
+    color: #111111;
+    padding: 10px 22px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+ 
+.app-button:hover {
+    background-color: #e8c97a;
+    color: #111111;
+}

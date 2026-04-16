@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suits Deposition Quiz</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            font-family: Georgia, serif;
+            margin: 0;
+            padding: 0;
+        }
+ 
+        #navbar {
+            background-color: #111;
+            padding: 14px 30px;
+            border-bottom: 2px solid #c9a84c;
+        }
+ 
+        #navbar a {
+            color: #c9a84c;
+            text-decoration: none;
+            margin-right: 20px;
+            font-size: 15px;
+        }
+ 
+        #navbar a:hover {
+            color: #ffffff;
+        }
+ 
+        #container {
+            max-width: 750px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+ 
+        h1 {
+            font-size: 38px;
+            color: #c9a84c;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+ 
+        h2 {
+            font-size: 24px;
+            color: #c9a84c;
+        }
+ 
+        .subtitle {
+            text-align: center;
+            color: #999;
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+ 
+        /* Intro box */
+        #intro {
+            background-color: #222;
+            border: 1px solid #c9a84c;
+            border-radius: 6px;
+            padding: 30px;
+            text-align: center;
+        }
+ 
+        #intro p {
+            color: #bbb;
+            line-height: 1.7;
+        }
+ 
+        #intro ul {
+            text-align: left;
+            color: #aaa;
+            line-height: 2;
+            display: inline-block;
+        }
+ 
+        /* Buttons */
+        .big-btn {
+            background-color: #c9a84c;
+            color: #111;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+ 
+        .big-btn:hover {
+            background-color: #e8c97a;
+        }
+ 
+        /* Question card */
+        #game {
+            display: none;
+        }
+ 
+        #question-box {
+            background-color: #222;
+            border-left: 4px solid #c9a84c;
+            padding: 20px 25px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+ 
+        #situation {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+ 
+        #question-text {
+            font-size: 20px;
+            color: #f0f0f0;
+            line-height: 1.5;
+        }
+ 
+        #context-box {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 14px 18px;
+            font-size: 14px;
+            color: #999;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+ 
+        /* Answer buttons */
+        .answer-btn {
+            display: block;
+            width: 100%;
+            background-color: #222;
+            color: #f0f0f0;
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 14px 18px;
+            font-size: 15px;
+            font-family: Georgia, serif;
+            text-align: left;
+            cursor: pointer;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+ 
+        .answer-btn:hover {
+            border-color: #c9a84c;
+            background-color: #2a2a2a;
+        }
+ 
+        .answer-btn.correct {
+            border-color: #27ae60;
+            background-color: #1a3a25;
+        }
+ 
+        .answer-btn.wrong {
+            border-color: #c0392b;
+            background-color: #3a1a1a;
+        }
+ 
+        /* Feedback box */
+        #feedback {
+            display: none;
+            padding: 15px 18px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+ 
+        #feedback.correct {
+            background-color: #1a3a25;
+            border: 1px solid #27ae60;
+            color: #7ddc9e;
+        }
+ 
+        #feedback.wrong {
+            background-color: #3a1a1a;
+            border: 1px solid #c0392b;
+            color: #e08888;
+        }
+ 
+        #next-btn {
+            display: none;
+            background-color: transparent;
+            color: #c9a84c;
+            border: 1px solid #c9a84c;
+            padding: 10px 24px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+ 
+        #next-btn:hover {
+            background-color: #c9a84c;
+            color: #111;
+        }
+ 
+        /* Progress */
+        #progress-text {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+ 
+        #score-display {
+            float: right;
+            color: #c9a84c;
+        }
+ 
+        /* End screen */
+        #end {
+            display: none;
+            text-align: center;
+            background-color: #222;
+            border: 1px solid #c9a84c;
+            border-radius: 6px;
+            padding: 40px 30px;
+        }
+ 
+        #final-score {
+            font-size: 72px;
+            color: #c9a84c;
+            line-height: 1;
+        }
+ 
+        #verdict-title {
+            font-size: 22px;
+            color: #e8c97a;
+            margin: 10px 0;
+        }
+ 
+        #verdict-text {
+            color: #aaa;
+            font-size: 15px;
+            line-height: 1.7;
+            max-width: 480px;
+            margin: 0 auto 25px;
+        }
+ 
+        /* Footer */
+        #footer {
+            text-align: center;
+            color: #555;
+            font-size: 13px;
+            margin-top: 60px;
+            padding: 20px;
+            border-top: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+ 
+    <div id="navbar">
+        <a href="suits.html">&larr; Suits Page</a>
+        <a href="index.html">Portfolio</a>
+    </div>
+ 
+    <div id="container">
+ 
+        <h1>The Deposition</h1>
+        <p class="subtitle">A Suits Quiz &mdash; You are Harvey Specter. Choose wisely.</p>
+ 
+        <!-- Intro screen -->
+        <div id="intro">
+            <h2>You've been deposed.</h2>
+            <p>Opposing counsel has you in a deposition room. Every question is a trap.<br>You have to answer like Harvey Specter would &mdash; strategic, calm, and precise.</p>
+            <br>
+            <ul>
+                <li>7 deposition scenarios</li>
+                <li>4 choices each</li>
+                <li>Pick the move Harvey would make</li>
+                <li>Your verdict at the end depends on your score</li>
+            </ul>
+            <br>
+            <button class="big-btn" onclick="startGame()">Enter the Deposition Room</button>
+        </div>
+ 
+        <!-- Game screen -->
+        <div id="game">
+            <div id="progress-text">
+                Question <span id="q-num">1</span> of 7
+                <span id="score-display">Score: 0</span>
+            </div>
+ 
+            <div id="question-box">
+                <p id="situation"></p>
+                <p id="question-text"></p>
+            </div>
+ 
+            <div id="context-box"></div>
+ 
+            <div id="answers"></div>
+ 
+            <div id="feedback"></div>
+ 
+            <button id="next-btn" onclick="nextQuestion()">Next Question &rarr;</button>
+        </div>
+ 
+        <!-- End screen -->
+        <div id="end">
+            <div id="final-score">0/7</div>
+            <div id="verdict-title"></div>
+            <p id="verdict-text"></p>
+            <button class="big-btn" onclick="resetGame()">Try Again</button>
+            <br><br>
+            <a href="suits.html" style="color: #c9a84c;">&larr; Back to Suits page</a>
+        </div>
+ 
+    </div>
+ 
+    <div id="footer">
+        <p>Made for Web Development class &bull; Suits Quiz App</p>
+    </div>
+ 
+    <script>
+        var questions = [
+            {
+                situation: "Case: Pearson Hardman v. Coastal Dynamics | Risk: High",
+                question: "Mr. Specter, did you advise your client to destroy those emails before we subpoenaed them?",
+                context: "Your client did delete emails — but before any legal hold was in place. This question is designed to make you panic and over-answer.",
+                choices: [
+                    "Absolutely not. My client acted independently and within the law.",
+                    "I'm not going to dignify that with a response.",
+                    "That's privileged information and I refuse to answer.",
+                    "My client deleted some emails but that was before the hold — let me explain."
+                ],
+                correct: 0,
+                good: "Correct. You answered cleanly and definitively. Over-explaining is how depositions unravel — you gave them nothing to pull on.",
+                bad: "Harvey wouldn't volunteer information or dodge in a way that looks guilty. A clean, factual denial with no elaboration is the power move here."
+            },
+            {
+                situation: "Case: Eastman Pharma Acquisition | Risk: Critical",
+                question: "Isn't it true that you personally stand to benefit financially if this merger goes through?",
+                context: "You don't have a financial stake — but a close friend of yours does. A flat 'no' could backfire if they have evidence of your friend's holdings.",
+                choices: [
+                    "No, I have no personal financial interest in this transaction.",
+                    "I do not — and I'd ask you to be specific about what you mean by 'personally,' because my answer may vary.",
+                    "That's inappropriate and I'm advising my client not to proceed.",
+                    "My financial disclosures are on file with the bar. You're welcome to review them."
+                ],
+                correct: 1,
+                good: "Exactly right. You forced them to show their hand without committing to an answer that could be undercut. That's how Harvey operates.",
+                bad: "A flat 'no' invites them to produce evidence of your friend's holdings. Harvey controls the frame — he never lets the other side define the question."
+            },
+            {
+                situation: "Case: Gordon Enterprises Fraud Suit | Risk: High",
+                question: "You coached your witness, didn't you? His testimony was almost word-for-word identical to your brief.",
+                context: "You did prep your witness — which is completely legal and standard practice. The trap is getting defensive about something that isn't a crime.",
+                choices: [
+                    "I prep all my witnesses. That's called doing my job.",
+                    "I object to the characterization of 'coached' — that's a loaded term.",
+                    "I don't discuss my trial preparation strategy in a deposition.",
+                    "My witness testified truthfully. Whatever similarity you're implying is coincidental."
+                ],
+                correct: 0,
+                good: "Perfect. You owned it without apologizing for it. Witness prep is legal — acting like it's a scandal makes you look guilty of something that isn't a crime.",
+                bad: "Harvey doesn't flinch or get indignant over a standard practice. When you act defensive about something completely legal, you hand them the narrative."
+            },
+            {
+                situation: "Case: Maynard Capital | Risk: Critical",
+                question: "Your firm failed to produce 3,000 emails in discovery. Was that an accident or a strategy?",
+                context: "There was a genuine technical error with your vendor — you found out two days ago and are already fixing it. Anything you say here can be used to establish bad faith.",
+                choices: [
+                    "It was a technical error by our vendor, which we identified and are actively correcting. Documents will be produced by end of week.",
+                    "I resent the implication that my firm would strategically withhold documents.",
+                    "I'm not prepared to answer that without reviewing the production logs.",
+                    "Discovery disputes are handled through proper channels, not depositions."
+                ],
+                correct: 0,
+                good: "That's the answer. Factual, solution-focused, no defensiveness. Harvey doesn't run from mistakes — he manages them.",
+                bad: "Getting indignant or deflecting makes a technical error look intentional. Harvey leads with the solution, not the explanation."
+            },
+            {
+                situation: "Case: Pearson v. Folsom Industries | Risk: Medium",
+                question: "Your client told you he knew the bridge was structurally unsound before the collapse. Didn't he?",
+                context: "Whatever your client told you is protected by attorney-client privilege. They're not really trying to get the information — they want you to look like you're hiding something damning.",
+                choices: [
+                    "That communication is protected by attorney-client privilege. I won't be answering that.",
+                    "My client said no such thing.",
+                    "I'm advising my client to assert the Fifth on this line of questioning.",
+                    "I'll have to consult with my client before I can respond to that."
+                ],
+                correct: 0,
+                good: "Clean. Direct. You invoked privilege correctly and gave them nothing — no tone, no hint. That's all you needed to say.",
+                bad: "You never deny or confirm the substance of a privileged communication — even a denial can waive privilege and opens the door to more questions."
+            },
+            {
+                situation: "Case: Harrington v. Crown Textile | Risk: High",
+                question: "You told opposing counsel in settlement talks that your client would accept $4 million. That's an admission your case is weak.",
+                context: "Settlement discussions are inadmissible under Rule 408 — they can't be used as evidence. The opposing counsel is either testing your knowledge or trying to rattle you.",
+                choices: [
+                    "My client's settlement posture is confidential.",
+                    "We never made any such offer.",
+                    "Settlement discussions are inadmissible under Rule 408. You know that. So does your judge.",
+                    "This is bad-faith tactic we'll be raising with the court."
+                ],
+                correct: 2,
+                good: "Excellent. You cited the rule and shut it down in two sentences. Harvey doesn't just know the law — he makes sure the other side knows he knows it.",
+                bad: "Denying it or calling it 'confidential' implies the offer exists and matters. The right answer is that it's inadmissible — the law already wins the argument for you."
+            },
+            {
+                situation: "Case: Litt v. Woodall — Final Round | Risk: Critical",
+                question: "Mr. Specter, in fifteen years of practice, have you ever done anything in a courtroom or boardroom that you knew was wrong?",
+                context: "This is a character attack designed to either get you to admit something or look evasive. There's only one way out of this that Harvey would take.",
+                choices: [
+                    "No. Never. My record speaks for itself.",
+                    "That's an incredibly broad question and I won't answer it as phrased.",
+                    "Every lawyer makes judgment calls. The question is whether your client suffered from mine — and they didn't.",
+                    "Define 'wrong.'"
+                ],
+                correct: 2,
+                good: "That's the Harvey Specter answer. You acknowledged fallibility without admitting anything specific, pivoted to the case, and reframed the question on your terms.",
+                bad: "A flat denial sounds dishonest. Dodging sounds weak. Harvey reframes the whole question — he doesn't run from it, he changes the game."
+            }
+        ];
+ 
+        var current = 0;
+        var score = 0;
+        var answered = false;
+ 
+        function startGame() {
+            document.getElementById('intro').style.display = 'none';
+            document.getElementById('game').style.display = 'block';
+            loadQuestion();
+        }
+ 
+        function loadQuestion() {
+            answered = false;
+            var q = questions[current];
+ 
+            document.getElementById('q-num').textContent = current + 1;
+            document.getElementById('score-display').textContent = 'Score: ' + score;
+            document.getElementById('situation').textContent = q.situation;
+            document.getElementById('question-text').textContent = q.question;
+            document.getElementById('context-box').textContent = q.context;
+ 
+            var answersDiv = document.getElementById('answers');
+            answersDiv.innerHTML = '';
+ 
+            var letters = ['A', 'B', 'C', 'D'];
+            for (var i = 0; i < q.choices.length; i++) {
+                var btn = document.createElement('button');
+                btn.className = 'answer-btn';
+                btn.textContent = letters[i] + '. ' + q.choices[i];
+                btn.onclick = (function(idx) {
+                    return function() { selectAnswer(idx); };
+                })(i);
+                answersDiv.appendChild(btn);
+            }
+ 
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('feedback').className = 'feedback';
+            document.getElementById('next-btn').style.display = 'none';
+        }
+ 
+        function selectAnswer(idx) {
+            if (answered) return;
+            answered = true;
+ 
+            var q = questions[current];
+            var buttons = document.querySelectorAll('.answer-btn');
+ 
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].disabled = true;
+                if (i === q.correct) {
+                    buttons[i].classList.add('correct');
+                } else if (i === idx && idx !== q.correct) {
+                    buttons[i].classList.add('wrong');
+                }
+            }
+ 
+            var feedback = document.getElementById('feedback');
+            feedback.style.display = 'block';
+ 
+            if (idx === q.correct) {
+                score++;
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '<strong>Correct.</strong> ' + q.good;
+            } else {
+                feedback.className = 'feedback wrong';
+                feedback.innerHTML = '<strong>Not quite.</strong> ' + q.bad;
+            }
+ 
+            document.getElementById('score-display').textContent = 'Score: ' + score;
+            document.getElementById('next-btn').style.display = 'inline-block';
+        }
+ 
+        function nextQuestion() {
+            current++;
+            if (current >= questions.length) {
+                showEnd();
+            } else {
+                loadQuestion();
+            }
+        }
+ 
+        function showEnd() {
+            document.getElementById('game').style.display = 'none';
+            document.getElementById('end').style.display = 'block';
+            document.getElementById('final-score').textContent = score + '/7';
+ 
+            var title, text;
+            if (score === 7) {
+                title = "The Best Closer in New York";
+                text = "Perfect score. You didn't just survive the deposition — you owned the room. You know when to talk, when to stay silent, and how to turn every trap into an exit. Harvey would pour you a Scotch.";
+            } else if (score >= 5) {
+                title = "Senior Partner Material";
+                text = "Strong performance. You kept your head under pressure and made the right call most of the time. A couple of moments where you gave away more than Harvey would — but the instincts are there.";
+            } else if (score >= 3) {
+                title = "First-Year Associate";
+                text = "You've got the raw material, but you're not quite ready for the big table. You let them control the frame a few too many times. Study the answers, then come back.";
+            } else {
+                title = "Opposing Counsel Wins";
+                text = "That deposition was rough. You talked when you should have stayed quiet, and stayed quiet when you needed to swing. Harvey would send you back to the file room. Try again.";
+            }
+ 
+            document.getElementById('verdict-title').textContent = title;
+            document.getElementById('verdict-text').textContent = text;
+        }
+ 
+        function resetGame() {
+            current = 0;
+            score = 0;
+            answered = false;
+            document.getElementById('end').style.display = 'none';
+            document.getElementById('intro').style.display = 'block';
+        }
+    </script>
+ 
+</body>
+</html>
